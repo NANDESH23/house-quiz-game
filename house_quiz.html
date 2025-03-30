@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Personality Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .quiz-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .option {
+            display: block;
+            background: #007BFF;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .option:hover {
+            background: #0056b3;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .disclaimer {
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>House Personality Quiz 🏡</h2>
+        <div id="question" class="question"></div>
+        <div id="options"></div>
+        <div id="result"></div>
+        <p class="disclaimer">⚠️ This quiz is just for fun! Results are not 100% accurate but are meant to entertain and engage. Enjoy! 😊</p>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                text: "How big is the house you imagined?",
+                options: ["Tiny & Cozy", "Normal Size", "Grand Mansion"],
+                meanings: ["You love peace & privacy.", "You are balanced & practical.", "You have BIG dreams & high ambition."]
+            },
+            {
+                text: "What color is the house?",
+                options: ["Bright Colors (Red, Yellow, etc.)", "Neutral (White, Beige, Grey)", "Dark Colors (Black, Navy, Deep Green)"],
+                meanings: ["You are energetic & creative!", "You are logical & calm.", "You are deep & mysterious."]
+            },
+            {
+                text: "What's the first thing you see inside?",
+                options: ["A cozy fireplace", "A luxurious big room", "A messy but comfy space"],
+                meanings: ["You seek warmth & stability.", "You love adventure & success.", "You are spontaneous & creative!"]
+            },
+            {
+                text: "Where is your house located?",
+                options: ["On a mountain", "By the sea", "In the city"],
+                meanings: ["You are independent & love challenges.", "You seek peace & emotional depth.", "You are ambitious & social."]
+            },
+            {
+                text: "What kind of door does your house have?",
+                options: ["A big, wide-open door", "A normal-sized door", "A small hidden entrance"],
+                meanings: ["You are open & welcoming!", "You are balanced & thoughtful.", "You are private & mysterious."]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let personalityResult = [];
+
+        function loadQuestion() {
+            document.getElementById("result").innerHTML = "";
+            let q = questions[currentQuestion];
+            document.getElementById("question").innerText = q.text;
+            let optionsHtml = "";
+            q.options.forEach((option, index) => {
+                optionsHtml += `<button class='option' onclick='selectOption(${index})'>${option}</button>`;
+            });
+            document.getElementById("options").innerHTML = optionsHtml;
+        }
+
+        function selectOption(index) {
+            personalityResult.push(questions[currentQuestion].meanings[index]);
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("question").innerText = "Your House Personality Result:";
+            document.getElementById("options").innerHTML = "";
+            document.getElementById("result").innerText = personalityResult.join(" \n ");
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
